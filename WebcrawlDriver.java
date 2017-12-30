@@ -1,0 +1,66 @@
+public class WebcrawlDriver{
+  
+  public static BookObject[] boList = new BookObject[100]; //resize method?
+  public static boolean MOBILISM = false;
+  public static boolean GOODREADS = true;
+  public static boolean AMAZON = true;
+
+  //Should drive mobilism,goodreads,amazon
+  public static void main(String[] args){
+    mobilismDriver();
+    System.out.println(amazonDriver());
+    System.out.println(goodreadsDriver());
+    
+  }
+
+  //return title, link, and download links...Store in book Object.
+  public static void mobilismDriver(){
+    MobilismFeed mb = new MobilismFeed();
+    String[] books;
+    
+    mb.findLinks(0);
+    mb.findBooks();
+    
+    mb.print();
+    
+  }
+  
+  public static void addTitle(String[] books){
+    int bookIndex = 0;
+    for(int i =0; i<books.length; i++){
+      if(books[i] == "N/A")
+        ;
+      else{
+        boList[bookIndex++].setTitle(books[i]);
+        boList[bookIndex++].nullVal = false;
+      }
+    }
+  }
+  
+  public static void printBoList(){
+    for(int i = 0; i < boList.length; i++){
+      if(boList[i].nullVal == true)
+        ;
+      else
+        System.out.println(boList[i].toString());
+    }
+  }
+  
+  //return descp,rating,reviews..Store in book Object.
+  public static boolean amazonDriver(){
+    if(!MOBILISM)
+      return false;
+    
+
+    return true;
+  }
+  //return descp,rating,reviews...Store in book Object.
+  public static boolean goodreadsDriver(){
+     if(!MOBILISM)
+      return false;
+    
+    
+    return true;
+
+  }
+}

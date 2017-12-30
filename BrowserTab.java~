@@ -1,0 +1,30 @@
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+public class BrowserTab{
+  
+  public static WebcrawlSpeed wcp;
+  
+  public static void main(String[] args){
+    BrowserTab ct = new BrowserTab();
+    System.out.println(ct.openTab("http://forum.mobilism.org/viewtopic.php?f=1293&t=2075486"));
+     
+  }
+  
+  public boolean openTab(String url){
+    try{
+      //handle double quotes in cmd program
+      url = "\"" + url + "\"";
+      String cmd = "cmd /c start chrome " + url;
+      Runtime.getRuntime().exec(cmd);
+      wcp.delay();
+    }
+    catch(Exception e){
+      return false;
+    }
+    
+    return true;
+    
+}
+}
+  

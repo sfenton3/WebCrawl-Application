@@ -1,0 +1,146 @@
+public class BookObject{
+  
+  public static int reviewsLength = 20;
+  public static String title;
+  public static String mobilismLink;
+  public static String mobilismDownloadLink;
+  public static String amazonLink;
+  public static String amazonDesc;
+  public static String amazonRating;
+  public static String[] amazonReviews = new String[reviewsLength];
+  public static String grLink;
+  public static String grDesc;
+  public static String grRating;
+  public static String[] grReviews = new String[reviewsLength];
+  
+  public static void main(String[] args){  
+    BookObject bo = new BookObject();
+    bo.setTitle("Books");
+    bo.setMobilismLink("http://forums...");
+    System.out.println(bo.toString());
+  }
+  
+  public BookObject(){
+    this.title = "NA";
+    this.mobilismLink = "NA";
+    this.mobilismDownloadLink = "NA";
+    this.amazonLink = "NA";
+    this.amazonDesc = "NA";
+    this.amazonRating = "NA";
+    this.grLink = "NA";
+    this.grDesc = "NA";
+    this.grRating = "NA";
+    for(int i=0;i<amazonReviews.length;i++)
+      amazonReviews[i] = "NA";
+    for(int i=0;i<grReviews.length;i++)
+      grReviews[i] = "NA";
+    
+  }
+  public static void setMobilismDownloadLink(String mobilismDownloadLink) {
+    BookObject.mobilismDownloadLink = mobilismDownloadLink;
+  }
+  public static String getMobilismDownloadLink() {
+    return mobilismDownloadLink;
+  }
+  
+  public static void setAmazonLink(String amazonLink) {
+    BookObject.amazonLink = amazonLink;
+  }
+  
+  public static String getAmazonLink() {
+    return amazonLink;
+  }
+  
+  public static String getAmazonDesc() {
+    return amazonDesc;
+  }
+  
+  public static void setAmazonDesc(String amazonDesc) {
+    BookObject.amazonDesc = amazonDesc;
+  }
+  
+  public static String getAmazonRating() {
+    return amazonRating;
+  }
+  
+  public static void setAmazonRating(String amazonRating) {
+    BookObject.amazonRating = amazonRating;
+  }
+  
+  public static String[] getAmazonReviews() {
+    return amazonReviews;
+  }
+  
+  public static void setAmazonReviews(String[] amazonReviews) {
+    BookObject.amazonReviews = amazonReviews;
+  }
+  
+  public static String getGrLink() {
+    return grLink;
+  }
+  
+  public static void setGrLink(String grLink) {
+    BookObject.grLink = grLink;
+  }
+  
+  public static String getGrDesc() {
+    return grDesc;
+  }
+  
+  public static void setGrDesc(String grDesc) {
+    BookObject.grDesc = grDesc;
+  }
+  
+  public static String getGrRating() {
+    return grRating;
+  }
+  
+  public static void setGrRating(String grRating) {
+    BookObject.grRating = grRating;
+  }
+  
+  public static String[] getGrReviews() {
+    return grReviews;
+  }
+  
+  public static void setGrReviews(String[] grReviews) {
+    BookObject.grReviews = grReviews;
+  }
+  
+  public void setTitle(String title){
+    this.title = title;
+  }
+  
+  public String getTitle(){
+    return title;    
+  }
+  
+  public void setMobilismLink(String mobilismLink){
+    this.mobilismLink = mobilismLink;
+  }
+  
+  public String getMobilismLink(){
+    return mobilismLink;   
+  }
+  
+  public String toString(){
+    return ("Title: " + title + "\n") +
+      ("Mobilism Link: "  + mobilismLink + "\n") +
+      ("Mobilism Download Link: " + "\n") +
+      ("Amazon Link: " + amazonLink + "\n") +
+      ("Amazon Description: "  + amazonDesc + "\n") +
+      ("Amazon Rating: " + amazonRating + "\n") +
+      ("Amazon Review[1]: "  + trim(amazonReviews[0], 65) + "\n") +
+      ("GoodReads Description: "  + grLink + "\n") +
+      ("GoodReads Description: "  + grDesc + "\n") +
+      ("GoodReads Rating: " + grRating + "\n") +
+      ("GoodReads Review[1]: "  + trim(grReviews[0], 65) + "\n");
+  }
+  
+  private String trim(String s, int width) {
+    if (s.length() > width)
+      return s.substring(0, width-1) + "";
+    else
+      return s;
+  }
+}

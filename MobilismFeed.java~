@@ -1,0 +1,121 @@
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import java.util.concurrent.TimeUnit;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Date;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class MobilismFeed {
+  
+  public static String urlList[] = new String[40];
+  public static String titleList[] = new String[40];;
+  public static String url = "https://forum.mobilism.org/viewforum.php?f=1293&start=";
+  
+  //page 0 is first page
+  public boolean findLinks(int page){
+    try{
+      page *= 40;
+      url = url + page;     
+      Document doc = Jsoup.connect(url).get();
+      Elements links = doc.select("a[href]");
+      int count = 0;
+      
+      for (Element link : links) {
+        if(link.toString().contains("?f=1293&") && link.toString().contains(".ePUB")){
+          urlList[count] = trim(link.attr("abs:href"), 58); 
+          titleList[count++] = trimParen(link.text());
+        }
+      }
+    }
+    catch(Exception e){
+      return false;
+    }   
+    return true;
+  }
+  
+  public boolean findBooks() {
+    System.out.println("Eliminating Bad Matches...");
+    try{
+      for(int i=0;i < urlList.length; i++){
+        if(!bookGenre(urlList[i])){
+          urlList[i] = "N/A";
+          titleList[i] = "N/A";     
+        }    
+        
+        TimeUnit.SECONDS.sleep(5);
+        
+      }
+    }
+    catch(InterruptedException ex){
+      return false;
+    }
+    
+    return true;
+  }
+  
+  //Helper method to connect to url and retreive specific book genre
+  //Add genre option to include/exclude genre
+  private boolean bookGenre(String url){
+    try{      
+      System.out.print("Working on" +  "..." + url + "\r");
+      
+      String[] genre = {"sci fi", "sci-fi", "science fiction", "horror", "short story", "romance", "comedy", "angels", "paranormal", "christian"};
+      Document doc = Jsoup.connect(url).get();
+      Elements elements = doc.body().select("div[class=content]");
+      //Elements links = doc.body().select("a[class=postlink][href]");
+      String t = elements.text().toLowerCase();
+      
+      for(int i=0;i<genre.length;i++){
+        if(t.contains(genre[i]))
+          return false;
+      }
+      
+      return t.contains("fantasy");
+    }
+    catch(Exception e){
+      return false;
+    }    
+  }
+  
+  public void print(){
+    System.out.println("Opening: "); 
+    BrowserTab bt = new BrowserTab();
+    
+    for(int i = 0; i < urlList.length; i++){
+      if(urlList[i] == "N/A")
+        ;
+      else{
+        String s = "Title: " + titleList[i] + " Link : " + urlList[i];
+        bt.openTab(urlList[i]);
+        System.out.println(s);
+      }
+    }   
+  }
+  
+  public String[] getTitleList(){
+    return titleList;
+  }
+  
+  public String[] getUrlList(){
+    return urlList;
+  }
+  
+  //Should not be part of this class...
+  private String trim(String s, int width) {
+    if (s.length() > width)
+      return s.substring(0, width-1) + "";
+    else
+      return s;
+  }
+  
+   private String trimParen(String s) {
+    int index = s.indexOf('(');
+      return s.substring(0, index-1) + "";
+  }
+  
+}

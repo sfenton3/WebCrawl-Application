@@ -1,0 +1,8 @@
+public interface parseInterface {
+  public boolean findLink(String searchTerm);
+  public boolean description();
+  public boolean rating();
+  public boolean reviews();
+  
+  
+}

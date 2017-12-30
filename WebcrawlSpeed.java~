@@ -1,0 +1,33 @@
+import java.util.concurrent.TimeUnit;
+
+public class WebcrawlSpeed{
+  
+  public static int delay;
+  public static void main(String[] args)throws Exception{
+    delay();
+    
+  }
+   
+  WebcrawlSpeed(){
+    this.delay = 5;
+    
+  }
+  WebcrawlSpeed(int delay){
+    this.delay = delay;
+    
+  }
+  
+  public static void delay(int delay) throws Exception{
+    TimeUnit.SECONDS.sleep(delay);
+    
+  }
+  
+  public static void delay() throws Exception{
+    TimeUnit.SECONDS.sleep(5);
+    
+  }
+    
+  
+}
+    
+    
